@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lwq.dao.SysResMapper" >
+  <resultMap id="BaseResultMap" type="com.lwq.model.SysRes" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="res_module_id" property="resModuleId" jdbcType="INTEGER" />
+    <result column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="manu" property="manu" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
+    <result column="operate_ip" property="operateIp" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, res_module_id, seq, count, code, price, unit, manu, status, remark, operator, 
+    operate_time, operate_ip
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_res
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_res
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lwq.model.SysRes" >
+    insert into sys_res (id, name, res_module_id, 
+      seq, count, code, price, 
+      unit, manu, status, 
+      remark, operator, operate_time, 
+      operate_ip)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{resModuleId,jdbcType=INTEGER}, 
+      #{seq,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, 
+      #{unit,jdbcType=VARCHAR}, #{manu,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, 
+      #{operateIp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lwq.model.SysRes" >
+    insert into sys_res
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="resModuleId != null" >
+        res_module_id,
+      </if>
+      <if test="seq != null" >
+        seq,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="manu != null" >
+        manu,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="operateTime != null" >
+        operate_time,
+      </if>
+      <if test="operateIp != null" >
+        operate_ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="resModuleId != null" >
+        #{resModuleId,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="manu != null" >
+        #{manu,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateIp != null" >
+        #{operateIp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lwq.model.SysRes" >
+    update sys_res
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="resModuleId != null" >
+        res_module_id = #{resModuleId,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        seq = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="manu != null" >
+        manu = #{manu,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        operate_time = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateIp != null" >
+        operate_ip = #{operateIp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lwq.model.SysRes" >
+    update sys_res
+    set name = #{name,jdbcType=VARCHAR},
+      res_module_id = #{resModuleId,jdbcType=INTEGER},
+      seq = #{seq,jdbcType=INTEGER},
+      count = #{count,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      unit = #{unit,jdbcType=VARCHAR},
+      manu = #{manu,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      operate_time = #{operateTime,jdbcType=TIMESTAMP},
+      operate_ip = #{operateIp,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="countByResModuleId" parameterType="map" resultType="int">
+    SELECT count(1)
+    FROM sys_res
+    WHERE res_module_id = #{resModuleId}
+  </select>
+
+  <select id="getPageByResModuleId" parameterType="map" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM sys_res
+    WHERE res_module_id = #{resModuleId}
+    ORDER BY seq ASC, name ASC
+    limit #{page.offset}, #{page.pageSize}
+  </select>
+
+  <select id="countByNameAndResModuleId" parameterType="map" resultType="int">
+    SELECT count(1)
+    FROM sys_res
+    WHERE res_module_id = #{resModuleId}
+    AND name = #{name}
+    <if test="id != null">
+      AND id != #{id}
+    </if>
+  </select>
+
+  <select id="countByCodeAndResModuleId" parameterType="map" resultType="int">
+    SELECT count(1)
+    FROM sys_res
+    WHERE res_module_id = #{resModuleId}
+    AND code = #{code}
+    <if test="id != null">
+      AND id != #{id}
+    </if>
+  </select>
+
+  <select id="getAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from sys_res
+  </select>
+
+  <select id="getByIdList" parameterType="map" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM sys_res
+    WHERE id IN
+    <foreach collection="resIdList" item="id" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </select>
+</mapper>

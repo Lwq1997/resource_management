@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--开启注解-->
+    <context:annotation-config />
+
+    <!--启动注解驱动的Spring MVC-->
+    <mvc:annotation-driven/>
+
+    <!--http前后的监听工具-->
+    <mvc:interceptors>
+        <bean class="com.lwq.common.HttpInterceptor"/>
+    </mvc:interceptors>
+
+    <!--包扫描-->
+    <context:component-scan base-package="com.lwq.controller"/>
+    <context:component-scan base-package="com.lwq.service"/>
+
+    <!--如果返回json，用这个类处理-->
+    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+
+    <!--获取spring上下文的bean-->
+    <bean class="com.lwq.common.ApplicationContextHelper" lazy-init="false"/>
+
+
+</beans>

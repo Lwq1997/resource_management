@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lwq.dao.SysRoleResMapper" >
+  <resultMap id="BaseResultMap" type="com.lwq.model.SysRoleRes" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="res_id" property="resId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, role_id, res_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_res
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_role_res
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lwq.model.SysRoleRes" >
+    insert into sys_role_res (id, role_id, res_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{resId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lwq.model.SysRoleRes" >
+    insert into sys_role_res
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="resId != null" >
+        res_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="resId != null" >
+        #{resId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lwq.model.SysRoleRes" >
+    update sys_role_res
+    <set >
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="resId != null" >
+        res_id = #{resId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lwq.model.SysRoleRes" >
+    update sys_role_res
+    set role_id = #{roleId,jdbcType=INTEGER},
+      res_id = #{resId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getResIdListByRoleIdList" parameterType="map" resultType="int">
+    SELECT res_id
+    FROM sys_role_res
+    WHERE role_id in
+    <foreach collection="roleIdList" item="roleId" open="(" close=")" separator=",">
+      #{roleId}
+    </foreach>
+  </select>
+
+  <delete id="deleteByRoleId" parameterType="int">
+    DELETE FROM sys_role_res
+    WHERE role_id = #{roleId}
+  </delete>
+
+  <insert id="batchInsert" parameterType="map">
+    insert into sys_role_res (role_id, res_id)
+    values
+    <foreach collection="roleResList" item="roleRes" separator=",">
+      (#{roleRes.roleId}, #{roleRes.resId})
+    </foreach>
+  </insert>
+</mapper>
