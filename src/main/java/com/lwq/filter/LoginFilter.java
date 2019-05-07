@@ -1,12 +1,12 @@
 package com.lwq.filter;
 
-import com.lwq.common.Const;
+import com.lwq.common.ApplicationContextHelper;
 import com.lwq.common.RequestHolder;
 import com.lwq.common.ServerResponse;
-import com.lwq.model.SysDept;
 import com.lwq.model.SysUser;
+import com.lwq.service.impl.LoginAndAclControlAndAclControlServiceImpl;
 import com.lwq.util.JsonMapper;
-import org.codehaus.jackson.type.TypeReference;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLDecoder;
 
 /**
  * @Author: Lwq
@@ -23,6 +22,7 @@ import java.net.URLDecoder;
  * @Describe  过滤登录请求
  */
 public class LoginFilter implements Filter {
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -33,18 +33,16 @@ public class LoginFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
-        SysUser sysUser = null;
-        Cookie[] cookies = req.getCookies();//这里是取出Cookie
-        if ((cookies!=null)){//判断Cookie是否为空
-            for (Cookie cookie : cookies){//遍历Cookie判断有没有对应的name
-                if (cookie.getName().equals(Const.CURRENT_USER)){
-                    sysUser = JsonMapper.string2Obj(cookie.getValue(),new TypeReference<SysUser>() {
-                    });
-                }
-            }
-        }
+        LoginAndAclControlAndAclControlServiceImpl loginService= ApplicationContextHelper.popBean(LoginAndAclControlAndAclControlServiceImpl.class);
 
-        if(sysUser==null){
+        String paramToken = req.getParameter(loginService.COOKI_NAME_TOKEN);
+        String cookieToken = getCookieValue(req,LoginAndAclControlAndAclControlServiceImpl.COOKI_NAME_TOKEN);
+
+        String token = StringUtils.isEmpty(paramToken)?cookieToken:paramToken;
+
+        SysUser user = loginService.getByTokan(resp,token);
+
+        if(user==null){
             resp.setCharacterEncoding("UTF-8");
             resp.setContentType("application/json; charset=utf-8");
             PrintWriter out = resp.getWriter();
@@ -53,12 +51,25 @@ public class LoginFilter implements Filter {
             return;
         }
 
-        RequestHolder.add(sysUser);
+        RequestHolder.add(user);
         RequestHolder.add(req);
 
         filterChain.doFilter(servletRequest,servletResponse);
 
         return;
+    }
+
+    private String getCookieValue(HttpServletRequest request, String cookieName) {
+        Cookie[] cookies = request.getCookies();
+        if(cookies==null || cookies.length<=0){
+            return null;
+        }
+        for(Cookie cookie:cookies){
+            if(cookie.getName().equals(cookieName)){
+                return cookie.getValue();
+            }
+        }
+        return null;
     }
 
     @Override

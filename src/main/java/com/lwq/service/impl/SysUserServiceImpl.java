@@ -201,6 +201,9 @@ public class SysUserServiceImpl implements ISysUserService {
                 int resultCount = sysUserRecordMapper.insert(sysUserRecord);
                 if(resultCount>0){
                     sysRes.setStatus(1);
+                    sysRes.setOperateTime(new Date());
+                    sysRes.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
+                    sysRes.setOperator(user.getUsername());
                     resultCount = sysResMapper.updateByPrimaryKeySelective(sysRes);
                     if(resultCount>0){
                         sysResMapper.updateByPrimaryKeySelective(sysRes);
@@ -235,6 +238,9 @@ public class SysUserServiceImpl implements ISysUserService {
             if(resId == sysRes.getId() && sysRes.getStatus() == 1){
                 sysUserRecordMapper.delete(userId,resId);
                 sysRes.setStatus(0);
+                sysRes.setOperateTime(new Date());
+                sysRes.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
+                sysRes.setOperator(user.getUsername());
                 int resultCount = sysResMapper.updateByPrimaryKeySelective(sysRes);
                 if(resultCount>0){
                     SysUserActLog actLog = SysUserActLog.builder()

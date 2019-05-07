@@ -91,7 +91,7 @@
     </init-param>
     <init-param>
       <param-name>exclusionUrls</param-name>
-      <param-value>/login.json,/logout.json,/sys/user/borrow.json,/sys/user/ret.json,/sys/user/detail.json,/sys/user/find.json</param-value>
+      <param-value>/sys/res/detail.json,/login.json,/logout.json,/sys/user/borrow.json,/sys/user/ret.json,/sys/user/detail.json,/sys/user/find.json</param-value>
     </init-param>
   </filter>
   <filter-mapping>

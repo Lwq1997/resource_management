@@ -3,6 +3,8 @@ package com.lwq.service;
 import com.lwq.common.ServerResponse;
 import com.lwq.model.SysUser;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @Author: Lwq
  * @Date: 2019/4/3 15:34
@@ -11,7 +13,7 @@ import com.lwq.model.SysUser;
  */
 public interface ILoginAndAclControlService {
 
-    ServerResponse<SysUser> login(String username, String password);
+    ServerResponse<SysUser> login(String username, String password, HttpServletResponse httpServletResponse);
 
     ServerResponse checkAdminRole(SysUser user);
 }

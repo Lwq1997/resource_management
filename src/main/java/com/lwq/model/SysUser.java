@@ -33,4 +33,5 @@ public class SysUser {
 
     private String operateIp;
 
+    private String token;
 }

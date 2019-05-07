@@ -16,8 +16,8 @@ import javax.validation.constraints.NotNull;
  * @Version 1.0
  * @Describe
  */
-@Getter
 @Setter
+@Getter
 @ToString
 public class ResParam {
 
